@@ -17,14 +17,14 @@ jobs:
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
       - run: 
           name: code testing 
-           command: |
+          command: |
             apt-get install -y nodejs
             apt-get install -y npm
             npm -g install acorn
             acorn --silent script.js
      - run: 
           name: development deploy
-           command: |
+          command: |
             ls
   Production:
      docker:
@@ -43,7 +43,7 @@ jobs:
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
      - run: 
           name: production deploy
-           command: |
+          command: |
             gcloud --quiet beta compute ssh --zone ${GOOGLE_COMPUTE_ZONE} ${VM_NAME} --project ${GOOGLE_PROJECT_ID} --ssh-flag="-t" --command="cd /var/www/InfraTI && git pull origin master;pwd"
 workflows:
   version: 2.1
