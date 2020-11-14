@@ -43,10 +43,12 @@ jobs:
             apt-get install -qq -y gettext
             echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run: 
           name: production deploy
           command: |
-            gcloud --quiet beta compute ssh --zone ${GOOGLE_COMPUTE_ZONE} ${VM_NAME} --project ${GOOGLE_PROJECT_ID} --ssh-flag="-t" --command="cd /var/www/InfraTI && git pull origin master;pwd"
+            gcloud --quiet compute scp --recurse html/ ${VM_NAME}:/mnt/sharedfolder
 workflows:
   version: 2.1
   build:
