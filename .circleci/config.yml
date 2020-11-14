@@ -27,7 +27,7 @@ jobs:
       - run: 
           name: development deploy
           command: |
-            gcloud --quiet compute scp -r html/ ${VM_NAME}:/var/www/html
+            gcloud --quiet compute scp --recurse html/ ${VM_NAME}:/var/www/html
   Production:
     docker:
       - image: google/cloud-sdk
