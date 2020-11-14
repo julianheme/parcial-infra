@@ -22,12 +22,12 @@ jobs:
             apt-get install -y npm
             npm -g install acorn
             acorn --silent script.js
-     - run: 
+      - run: 
           name: development deploy
           command: |
             ls
   Production:
-     docker:
+    docker:
       - image: google/cloud-sdk
     environment:
       - PROJECT_NAME: "infra2020"
@@ -41,7 +41,7 @@ jobs:
             apt-get install -qq -y gettext
             echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-     - run: 
+      - run: 
           name: production deploy
           command: |
             gcloud --quiet beta compute ssh --zone ${GOOGLE_COMPUTE_ZONE} ${VM_NAME} --project ${GOOGLE_PROJECT_ID} --ssh-flag="-t" --command="cd /var/www/InfraTI && git pull origin master;pwd"
