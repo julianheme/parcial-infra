@@ -21,7 +21,6 @@ jobs:
             apt-get install -y nodejs
             apt-get install -y npm
             npm -g install acorn
-            acorn --silent script.js
       - run: 
           name: development deploy
           command: |
